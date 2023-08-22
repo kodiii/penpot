@@ -1,23 +1,22 @@
-# Use the official Docker image as the base image
+# Use the official Docker image as the base image for the services
 FROM docker:latest
 
-# Install curl
+# Install curl for downloading assets
 RUN apk --no-cache add curl
-
-# Download the docker-compose.yaml file
-RUN curl -o docker-compose.yaml https://raw.githubusercontent.com/penpot/penpot/main/docker/images/docker-compose.yaml
-
-# Install Docker Compose
-RUN apk --no-cache add docker-compose
 
 # Create and set the working directory
 WORKDIR /app
 
-# Copy the downloaded docker-compose.yaml into the container
+# Copy the docker-compose.yaml file into the container
 COPY docker-compose.yaml .
 
-# Launch Penpot using Docker Compose
-CMD ["docker-compose", "-p", "penpot", "-f", "docker-compose.yaml", "up", "-d"]
+# Install Docker Compose
+RUN apk --no-cache add docker-compose
 
-# Expose the required port
+# Expose the relevant ports (you might need to adjust based on your needs)
 EXPOSE 9001
+EXPOSE 1025
+EXPOSE 1080
+
+# Launch Penpot using Docker Compose
+CMD ["docker-compose", "-f", "docker-compose.yaml", "up"]
