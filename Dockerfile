@@ -7,8 +7,8 @@ RUN apk --no-cache add curl
 # Create and set the working directory
 WORKDIR /app
 
-# Copy the docker-compose.yaml file into the container
-COPY docker-compose.yaml .
+# Copy the docker-compose.yaml file from the "Docker" subfolder into the container
+COPY Docker/docker-compose.yaml .
 
 # Install Docker Compose
 RUN apk --no-cache add docker-compose
